@@ -3,7 +3,6 @@ let app = express();
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 
-
 let ent = require('ent');
 let HandleTodolist = require('./HandleTodolist');
 
@@ -12,15 +11,13 @@ var todoList = new HandleTodolist();
 app.use(express.static('public'));
 
 app.get('/', function(req,res){
-
     res.sendFile(__dirname+'/index.html')
 });
 
 io.on('connection', function(socket){
-    let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': io};
     //callbacks pour les tâches class Todolist
-    // let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': (name, value) => {io.emit(name, value)}};
-
+    //Les fonctions fléchées pour conservé le this local websocket en à besoin dans son code
+    let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': (name, value) => {io.emit(name, value)}};
     //Si un utilisateur veux supprimer une tâche
     socket.on('deleteTask', function (message) {
         todoList.delete(message,callbacks)

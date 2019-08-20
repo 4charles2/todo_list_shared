@@ -38,8 +38,8 @@ class HandleTodolist {
             callbacks.error("notWork", "la tâche existe déjà");
         else {
             this.todolist.push(task);
-            callbacks.work.emit("todoList", this.todolist)
-            // callbacks.work("todoList", this.todolist)
+            //callbacks.work.emit("todolist", this.todolist)
+             callbacks.work("todolist", this.todolist)
         }
     }
 
@@ -56,7 +56,7 @@ class HandleTodolist {
      */
     delete(task, callbacks) {
         if(!HandleTodolist.isEmpty(task) && this.isInclude(task)) {
-            this.todolist.splice(this.todolist.indexOf(task));
+            this.todolist.splice(this.todolist.indexOf(task),1);
             callbacks.work("todolist", this.todolist)
         }else{
             callbacks.error('notwork', "La tâche est déjà suprimé")

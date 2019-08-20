@@ -49,6 +49,15 @@
             })
         else
             containTodoList.innerHTML = '<p>Aucune tâche n\'a encore été crée !</p>';
+
+        //Suprimer une tâche
+        document.querySelectorAll('.remove-task').forEach((elem) => {
+            elem.addEventListener('click', (e) => {
+                //console.log(e.target.parentElement.firstChild.textContent);
+                console.log(e.target.previousSibling.textContent)
+                socket.emit('deleteTask', e.target.previousSibling.textContent);
+            })
+        });
     }
 
     //Affiche les messages reçu du serveur
@@ -56,13 +65,7 @@
         alert(message);
     }
 
-    //Suprimer une tâche
-    document.querySelectorAll('.croix').forEach((elem) => {
-        elem.addEventListener('click', (e) => {
-            console.log(e);
-            // socket.emit('deleteTask', task);
-        })
-    });
+
     //Ajouter une nouvelle tâche
     document.querySelector('#form-addTask').addEventListener('submit', (e) => {
         let inputTask = e.target.elements.addTask.value
