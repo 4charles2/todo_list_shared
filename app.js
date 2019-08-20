@@ -17,8 +17,9 @@ app.get('/', function(req,res){
 });
 
 io.on('connection', function(socket){
+    let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': io};
     //callbacks pour les tâches class Todolist
-    let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': (name, value) => {io.emit(name, value)}};
+    // let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': (name, value) => {io.emit(name, value)}};
 
     //Si un utilisateur veux supprimer une tâche
     socket.on('deleteTask', function (message) {

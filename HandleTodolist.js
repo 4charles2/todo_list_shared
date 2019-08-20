@@ -38,7 +38,8 @@ class HandleTodolist {
             callbacks.error("notWork", "la tâche existe déjà");
         else {
             this.todolist.push(task);
-            callbacks.work("todoList", this.todolist)
+            callbacks.work.emit("todoList", this.todolist)
+            // callbacks.work("todoList", this.todolist)
         }
     }
 
