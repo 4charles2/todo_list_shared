@@ -69,7 +69,7 @@
     //Ajouter une nouvelle tâche
     document.querySelector('#form-addTask').addEventListener('submit', (e) => {
         let inputTask = e.target.elements.addTask.value
-        preventDefault();
+        e.preventDefault();
         if (inputTask !== '')
             socket.emit('addTask', inputTask);
     })
