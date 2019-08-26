@@ -17,7 +17,9 @@ app.get('/', function(req,res){
 io.on('connection', function(socket){
     //callbacks pour les tâches class Todolist
     //Les fonctions fléchées pour conservé le this local websocket en à besoin dans son code
-    let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': (name, value) => {io.emit(name, value)}};
+    // let callbacks = {'error': (name, value) => {socket.emit(name, value)}, 'work': (name, value) => {io.emit(name, value)}};
+    //Avec une syntaxe beaucoup plus claire
+    let callbacks = {'error': socket.emit.bind(socket), 'work': io.emit.bind(io)};
     //Si un utilisateur veux supprimer une tâche
     socket.on('deleteTask', function (message) {
         todoList.delete(message,callbacks)
